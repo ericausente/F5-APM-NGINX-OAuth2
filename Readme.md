@@ -5,8 +5,7 @@ This project demonstrates the implementation of OAuth 2.0 using F5 BIG-IP Access
 # Topology
 
 A brief description of the network topology used in this project, highlighting the role of each component within the OAuth  flow.
-![Topology]([https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology.PNG](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology_mew.PNG))
-
+![Topology](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology_mew.PNG)
 
 For this, step by step, we will configure APM as OAuth Server
 You can refer to this link for more: 
