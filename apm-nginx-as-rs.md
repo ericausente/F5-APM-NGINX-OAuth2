@@ -83,7 +83,59 @@ ltm virtual oidcp_vs {
 
 # Configure NGINX Plus:
 - Enable JWT validation and OAuth 2.0 introspection on NGINX Plus.
-- Configure NGINX to communicate with APM for token introspection.
+- Configure NGINX to communicate with APM for token introspection
+We can Specify the path to the JSON Web Key file that will be used to verify JWT signature or decrypt JWT content, depending on what you are using. 
+This can be done with the auth_jwt_key_file and/or auth_jwt_key_request directives. 
+Specifying both directives at the same time will allow you to specify more than one source for keys. 
+
+In my case, for JWS signature verification, I only used auth_jwt_key_file directives. 
+In this scenario, the keys will be taken from two files: the key.jwk file. 
+
+```
+$ pwd
+/etc/nginx
+```
+
+```
+$ cat key.jwk
+{"keys":
+    [{
+        "k":"ZmFudGFzdGljand0",    #  echo -n fantasticjwt | base64 | tr '+/' '-_' | tr -d '='
+        "kty":"oct",
+        "kid":"0001"
+    }]
+}
+```
+
+nginx.conf
+```
+...
+
+server {
+listen 8086;
+location /products/ {
+return 200 "accessing products";
+}
+}
+
+
+server {
+    listen 8006;
+    location /products/ {
+        proxy_pass           http://127.0.0.1:8086;
+        auth_jwt             "API";
+        auth_jwt_key_file    /etc/nginx/key.jwk;     ################################ -> !!!
+        #auth_jwt_key_request /public_jws_keys;
+    }
+
+    location /public_jws_keys {
+        internal;
+        proxy_pass "https://172.16.4.156/f5-oauth2/v1/jwkeys";
+    }
+}
+
+```
+
 - Setup the necessary location blocks in your NGINX configuration to protect the backend application.
 
 # Access Protected Resource:
@@ -97,7 +149,3 @@ ltm virtual oidcp_vs {
 
 # Response to Postman:
 - NGINX Plus sends the backend application's response back to Postman.
-
-        
-
-![Image Alt Text](URL)
