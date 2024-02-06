@@ -1,12 +1,12 @@
-![image](https://github.com/ericausente/JWT-OAUTH-OIDC/assets/17806308/8f03a944-fc55-4d3b-83b5-1278e01baac9)In this scenario: 
-
+In this scenario: 
 ![Topology](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology.PNG)
+
+# From APM: We will define the OAuth profiles, scopes, access policies, and client applications in APM, including Postman.
 
 For this, step by step, we will configure APM as OAuth Server
 You can refer to this link for more: 
 This site was built using [Manual Chapter : Using APM as an OAuth 2.0 Authorization Server](https://techdocs.f5.com/en-us/bigip-17-0-0/big-ip-access-policy-manager-oauth-configuration/using-apm-as-an-oauth-2-server.html#concept-9381).
 
-# From APM: We will define the OAuth profiles, scopes, access policies, and client applications in APM, including Postman.
 
 ### Configuring OAuth scopes of access for client apps 
 BIG-IP UI >> Access >> Federation >> OAuth Authorization Server >> Scope >> Create
@@ -72,7 +72,6 @@ ltm virtual oidcp_vs {
     vs-index 23
 }
 ```
-
 
 # Setup Postman Client 
 - Configure Postman with the authorization details provided by APM, such as the client ID and client secret, and set the callback URL to the one specified in APM.
