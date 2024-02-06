@@ -1,4 +1,4 @@
-In this scenario: 
+![image](https://github.com/ericausente/JWT-OAUTH-OIDC/assets/17806308/8f03a944-fc55-4d3b-83b5-1278e01baac9)In this scenario: 
 
 ![Topology](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology.PNG)
 
@@ -8,16 +8,70 @@ This site was built using [Manual Chapter : Using APM as an OAuth 2.0 Authorizat
 
 # From APM: We will define the OAuth profiles, scopes, access policies, and client applications in APM, including Postman.
 
-### Registering a client application for OAuth services
-### Registering a resource server for OAuth services
 ### Configuring OAuth scopes of access for client apps 
+BIG-IP UI >> Access >> Federation >> OAuth Authorization Server >> Scope >> Create
+![Scope1](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Scope1.PNG)
+![Scope2](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Scope2.PNG)
+
+### Registering a client application for OAuth services
+BIG-IP UI >> Access >> Federation >> OAuth Authorization Server >> Client Application >> Create
+![Client-App](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Oauth%20Client.PNG)
+
+### Registering a resource server for OAuth services (NGINX)
+![RS](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/RS.PNG)
+
 ### Configuring JWT claims
+Access  ››  Federation : OAuth Authorization Server : Claim 
+![Claims](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Claims.PNG)
+
 ### Configuring JSON web keys (JWKs)
-### Creating an OAuth profile
-### Configuring support for JWTs in an OAuth profile
+Access  ››  Federation : JSON Web Token : Key Configuration  ››  jwk
+![JWKs](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/JWKs.PNG)
+
+Take note of the ID here and and the type as well as the shared secret. 
+We will be using that one to create the key.jwk in nginx later on, it has to be the same for purposes of offline validation. 
+
+### Creating an OAuth profile and Configuring support for JWTs in an OAuth profile
+BIG-IP UI >> Access >> Federation >> OAuth Authorization Server >> OAuth Profile >> Create
+![OAUTH Profile](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Oauth%20Profile.PNG)
+
 ### Creating an access profile for F5 as an OAuth authorization server
+BIG-IP UI >> Access >> Profiles / Policies >> Access Profiles (Per-Session Policies) >> Create
+![Access Profile](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Access%20Profile.PNG)
+
 ### Configuring an access policy for F5 as an OAuth authorization server
+![VPE1](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/AccessPolicyVPE1.PNG)
+![VPE2](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/VPE2.PNG)
+
 ### Creating a virtual server for OAuth authorization server traffic
+
+```
+ltm virtual oidcp_vs {
+    creation-time 2024-02-04:15:42:13
+    destination 172.16.4.156:https
+    ip-protocol tcp
+    last-modified-time 2024-02-04:15:55:14
+    mask 255.255.255.255
+    profiles {
+        clientssl {
+            context clientside
+        }
+        http { }
+        oidcp { }
+        rba { }
+        serverssl {
+            context serverside
+        }
+        tcp { }
+        websso { }
+    }
+    serverssl-use-sni disabled
+    source 0.0.0.0/0
+    translate-address enabled
+    translate-port enabled
+    vs-index 23
+}
+```
 
 
 # Setup Postman Client 
