@@ -1,5 +1,5 @@
 In this scenario: 
-![Topology](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology.PNG)
+![Topology]([https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology.PNG](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology_mew.PNG))
 
 # From APM: We will define the OAuth profiles, scopes, access policies, and client applications in APM, including Postman.
 
