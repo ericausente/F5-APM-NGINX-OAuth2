@@ -34,8 +34,9 @@ Access  ››  Federation : OAuth Authorization Server : Claim
 Access  ››  Federation : JSON Web Token : Key Configuration  ››  jwk
 ![JWKs](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/JWKs.PNG)
 
-Take note of the ID here and and the type as well as the shared secret. 
-We will be using that one to create the key.jwk in nginx later on, it has to be the same for purposes of offline validation. 
+Here, configure your JWKs by specifying the Key ID (`kid`), the Key Type (`kty`), and the Shared Secret. The Key ID associates this key with JWTs issued by APM, the Key Type denotes the cryptographic algorithm used, and the Shared Secret is utilized for signing the tokens.
+
+Important: Ensure that the `kid`, `kty`, and the encoded Shared Secret in the `key.jwk` file for NGINX correspond exactly to those configured in the APM. This alignment is pivotal for the offline validation of tokens by NGINX.
 
 ### Creating an OAuth profile and Configuring support for JWTs in an OAuth profile
 BIG-IP UI >> Access >> Federation >> OAuth Authorization Server >> OAuth Profile >> Create
