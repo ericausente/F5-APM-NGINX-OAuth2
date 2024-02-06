@@ -8,7 +8,9 @@ A brief description of the network topology used in this project, highlighting t
 ![Topology](https://github.com/ericausente/JWT-OAUTH-OIDC/blob/main/Topology_mew.PNG)
 
 For this, step by step, we will configure APM as OAuth Server
+
 You can refer to this link for more: 
+
 This site was built using [Manual Chapter : Using APM as an OAuth 2.0 Authorization Server](https://techdocs.f5.com/en-us/bigip-17-0-0/big-ip-access-policy-manager-oauth-configuration/using-apm-as-an-oauth-2-server.html#concept-9381).
 
 
